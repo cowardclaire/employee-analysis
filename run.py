@@ -84,4 +84,34 @@ df = valid_df.copy()
 print("\n--- DATAFRAME AFTER REMOVING INVALID OUTLIERS ---")
 print(df.head())
 
+# Check for outliers in the 'Monthly Income' column
+outliers_monthly_income = check_outliers(df, 'Monthly Income')
+print("\n--- OUTLIERS IN MONTHLY INCOME ---")
+if outliers_monthly_income.empty:
+    print("No outliers detected in Monthly Income.")
+else:
+    print(outliers_monthly_income[['Employee ID','Job Role','Years at Company','Number of Promotions', 'Monthly Income']])
 
+#checking category columns for unique values to identify any inconsistencies or errors in the data
+
+for col in df.select_dtypes(include='object'):
+    print(col, df[col].unique())
+
+#checking for duplicates in the dataset based on Employee ID column
+duplicates = df[df.duplicated(subset='Employee ID', keep=False)]
+print("\n--- DUPLICATES BASED ON EMPLOYEE ID ---")
+if duplicates.empty:
+    print("No duplicates found based on Employee ID.")     
+else:    print(duplicates[['Employee ID', 'Age', 'Job Role', 'Years at Company']])
+
+#check for negative values in the dataset for columns that should not have negative values such as Age, Monthly Income, Years at Company, Number of Promotions  
+negative_values = df[
+    (df['Age'] < 0) |
+    (df['Monthly Income'] < 0) |
+    (df['Years at Company'] < 0) |
+    (df['Number of Promotions'] < 0)
+]
+print("\n--- NEGATIVE VALUES IN THE DATASET ---")
+if negative_values.empty:
+    print("No negative values found in the dataset.")   
+else:    print(negative_values[['Employee ID', 'Age', 'Monthly Income', 'Years at Company', 'Number of Promotions']])
