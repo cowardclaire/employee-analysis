@@ -141,6 +141,7 @@ sns.scatterplot(x=df["Starting Age"], y=df["Years at Company"])
 plt.title("Scatter: Starting Age vs Years at Company")
 plt.show()
 
+#CATEGORICAL CHECKS
 
 
 categorical_cols = [
@@ -163,3 +164,9 @@ for j in range(len(categorical_cols), len(axes)):
     fig.delaxes(axes[j])
 
 plt.show()
+
+
+#Exporting cleaned dataset to a new CSV file
+df.to_csv("data-cleaned.csv", index=False)
+print("\n--- CLEANED DATASET EXPORTED ---")
+
