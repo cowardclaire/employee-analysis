@@ -1,5 +1,8 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 #function to load the data file and checking the data types of columns and null values
 
@@ -115,3 +118,48 @@ print("\n--- NEGATIVE VALUES IN THE DATASET ---")
 if negative_values.empty:
     print("No negative values found in the dataset.")   
 else:    print(negative_values[['Employee ID', 'Age', 'Monthly Income', 'Years at Company', 'Number of Promotions']])
+
+#RELATIONSHIP VALIDATION
+
+numeric_cols = ["Age", "Starting Age", "Years at Company"]
+
+# Age vs Starting Age
+plt.figure(figsize=(7, 5))
+sns.scatterplot(x=df["Starting Age"], y=df["Age"])
+plt.title("Scatter: Age vs Starting Age")
+plt.show()
+
+# Age vs Years at Company
+plt.figure(figsize=(7, 5))
+sns.scatterplot(x=df["Age"], y=df["Years at Company"])
+plt.title("Scatter: Age vs Years at Company")
+plt.show()
+
+# Starting Age vs Years at Company
+plt.figure(figsize=(7, 5))
+sns.scatterplot(x=df["Starting Age"], y=df["Years at Company"])
+plt.title("Scatter: Starting Age vs Years at Company")
+plt.show()
+
+
+
+categorical_cols = [
+    "Gender", "Job Role", "Innovation Opportunities",
+    "Company Reputation", "Employee Recognition", "Attrition"
+]
+
+# 2 rows × 3 columns grid
+fig, axes = plt.subplots(2, 3, figsize=(20, 12), constrained_layout=True)
+
+axes = axes.flatten()
+
+for i, col in enumerate(categorical_cols):
+    sns.countplot(x=df[col], ax=axes[i])
+    axes[i].set_title(f"Category Counts: {col}", fontsize=13)
+    axes[i].tick_params(axis='x', rotation=45)
+
+# Hide any unused axes (safety)
+for j in range(len(categorical_cols), len(axes)):
+    fig.delaxes(axes[j])
+
+plt.show()
