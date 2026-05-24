@@ -121,10 +121,15 @@ else:    print(negative_values[['Employee ID', 'Age', 'Monthly Income', 'Years a
 
 #Bucket up ages in age groups for better analysis and visualization, creating a new column called Age Group based on the Age column using pd.cut() function to create age groups such as <25, 25-34, 35-44, 45-54, 55-64, 65+.
 bins = [0, 25, 35, 45, 55, 65, 120]
-labels = ["<25", "25-34", "35-44", "45-54", "55-64", "65+"]
+labels = ["18-25", "25-34", "35-44", "45-54", "55-64", "65+"]
 
 df["Age_Group"] = pd.cut(df["Age"], bins=bins, labels=labels, right=False)
 
+#Bucket up starting ages in age groups for better analysis and visualization, creating a new column called Age Group based on the Age column using pd.cut() function to create age groups such as <25, 25-34, 35-44, 45-54, 55-64, 65+.
+bins = [0, 25, 35, 45, 55, 65, 120]
+labels = ["18-25", "25-34", "35-44", "45-54", "55-64", "65+"]
+
+df["Starting_Age_Group"] = pd.cut(df["Starting Age"], bins=bins, labels=labels, right=False)
 
 #RELATIONSHIP VALIDATION
 
