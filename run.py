@@ -119,6 +119,13 @@ if negative_values.empty:
     print("No negative values found in the dataset.")   
 else:    print(negative_values[['Employee ID', 'Age', 'Monthly Income', 'Years at Company', 'Number of Promotions']])
 
+#Bucket up ages in age groups for better analysis and visualization, creating a new column called Age Group based on the Age column using pd.cut() function to create age groups such as <25, 25-34, 35-44, 45-54, 55-64, 65+.
+bins = [0, 25, 35, 45, 55, 65, 120]
+labels = ["<25", "25-34", "35-44", "45-54", "55-64", "65+"]
+
+df["Age_Group"] = pd.cut(df["Age"], bins=bins, labels=labels, right=False)
+
+
 #RELATIONSHIP VALIDATION
 
 numeric_cols = ["Age", "Starting Age", "Years at Company"]
